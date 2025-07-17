@@ -29,8 +29,7 @@ tasks:
     desc: Builds the mobileproxy artifacts from the Outline SDK.
     cmds:
       - git clone --depth 1 --branch "{{.OUTLINE_SDK_TAG}}" https://github.com/Jigsaw-Code/outline-sdk.git outline-sdk
-      - cd outline-sdk/x
-      - task build:mobileproxy
+      - cd outline-sdk/x && task build:mobileproxy
       - mkdir -p output
       - cp outline-sdk/out/mobileproxy/mobileproxy.aar output/mobileproxy.aar
       - cp outline-sdk/out/mobileproxy/mobileproxy.xcframework.zip output/mobileproxy.xcframework.zip
