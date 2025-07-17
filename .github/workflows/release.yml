@@ -24,6 +24,8 @@ jobs:
 
       - name: Setup Task
         uses: arduino/setup-task@157f82c7844f70e57cfba72da2224348d386b9fe
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Mobileproxy
         env:
