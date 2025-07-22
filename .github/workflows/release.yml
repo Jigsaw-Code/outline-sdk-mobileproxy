@@ -46,12 +46,12 @@ jobs:
         env:
           RELEASE_TAG: ${{ steps.get_release_info.outputs.tag }}
           RELEASE_CHECKSUM: ${{ steps.get_release_info.outputs.checksum }}
-        run: task update:package
+        run: task package:update
 
       - name: Publish Release Commit
         env: 
           RELEASE_TAG: ${{ steps.get_release_info.outputs.tag }}
-        run: task publish:package
+        run: task package:publish
 
       # The first-party releases action, actions/create-release, is unmaintained.
       - name: Create Draft Release
