@@ -31,8 +31,8 @@ tasks:
       - git clone --depth 1 --branch "{{.OUTLINE_SDK_TAG}}" https://github.com/Jigsaw-Code/outline-sdk.git outline-sdk
       - cd outline-sdk/x && task build:mobileproxy
       - mkdir -p output
-      - cp outline-sdk/out/mobileproxy/mobileproxy.aar output/mobileproxy.aar
-      - cp outline-sdk/out/mobileproxy/mobileproxy.xcframework.zip output/mobileproxy.xcframework.zip
+      - cp outline-sdk/x/out/mobileproxy/mobileproxy.aar output/mobileproxy.aar
+      - cp outline-sdk/x/out/mobileproxy/mobileproxy.xcframework.zip output/mobileproxy.xcframework.zip
       - rm -rf outline-sdk
     generates:
       - output/mobileproxy.aar
