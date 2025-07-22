@@ -39,7 +39,7 @@ jobs:
           RELEASE_TAG="${INPUT_TAG#x/v}"
           echo "tag=${RELEASE_TAG}" >> $GITHUB_OUTPUT
 
-          RELEASE_CHECKSUM=$(output/mobileproxy.xcframework.zip)
+          RELEASE_CHECKSUM=$(swift package compute-checksum output/mobileproxy.xcframework.zip)
           echo "checksum=${RELEASE_CHECKSUM}" >> $GITHUB_OUTPUT
 
       - name: Update Package Definition
