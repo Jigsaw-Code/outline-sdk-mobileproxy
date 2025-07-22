@@ -12,8 +12,6 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
-// !!! THIS IS A PLACEHOLDER, NOT A VALID PACKAGE FILE !!!
-
 // swift-tools-version:5.3
 import PackageDescription
 
@@ -30,8 +28,8 @@ let package = Package(
     targets: [
         .binaryTarget(
             name: "mobileproxy",
-            url: "https://github.com/Jigsaw-Code/outline-sdk-mobileproxy/releases/download/0.0.0/mobileproxy.xcframework.zip",
-            checksum: "fc7e8d5e077690fc410d5379ec178176"
+            url: "https://github.com/Jigsaw-Code/outline-sdk-mobileproxy/releases/download/0.0.4/mobileproxy.xcframework.zip",
+            checksum: "9c46d26326a6aee12060f6d25e032ae8518ab6c2b913235f3520fd1c0ca4860a"
         )
     ]
 )
