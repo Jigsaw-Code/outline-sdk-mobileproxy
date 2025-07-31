@@ -16,13 +16,13 @@
 import PackageDescription
 
 let package = Package(
-    name: "OutlineSDK-Mobileproxy",
+    name: "Mobileproxy",
     platforms: [
         .iOS(.v11)
     ],
     products: [
         .library(
-            name: "OutlineSDK-Mobileproxy",
+            name: "Mobileproxy",
             targets: ["mobileproxy"])
     ],
     targets: [
