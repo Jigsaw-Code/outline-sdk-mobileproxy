@@ -21,7 +21,7 @@
 
   <groupId>org.getoutline.sdk</groupId>
   <artifactId>mobileproxy</artifactId>
-  <version>0.0.4</version>
+  <version>0.0.4-SNAPSHOT</version>
   <packaging>aar</packaging>
 
   <name>Outline SDK Mobileproxy</name>
