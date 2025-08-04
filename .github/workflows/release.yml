@@ -28,13 +28,6 @@ jobs:
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
-      # - name: Setup Java and Maven
-      #   uses: actions/setup-java@v4
-      #   with:
-      #     distribution: 'temurin'
-      #     java-version: '17'
-      #     repo-token: ${{ secrets.GITHUB_TOKEN }}
-
       - name: Build Mobileproxy
         env:
           OUTLINE_SDK_TAG: ${{ github.event.inputs.outline_sdk_tag }}
