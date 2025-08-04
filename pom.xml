@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--
+  Copyright 2025 The Outline Authors
+
+  Licensed under the Apache License, Version 2.0 (the "License");
+  you may not use this file except in compliance with the License.
+  You may obtain a copy of the License at
+
+      https://www.apache.org/licenses/LICENSE-2.0
+
+  Unless required by applicable law or agreed to in writing, software
+  distributed under the License is distributed on an "AS IS" BASIS,
+  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  See the License for the specific language governing permissions and
+  limitations under the License.
+-->
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+
+  <groupId>io.github.jigsaw-code.outline-sdk-mobileproxy</groupId>
+  <artifactId>mobileproxy</artifactId>
+  <version>0.0.4</version>
+  <packaging>aar</packaging>
+
+  <name>Outline SDK Mobileproxy</name>
+  <description>A proxy library for mobile platforms, built from the Outline SDK. This package contains the Android AAR file.</description>
+  <url>https://github.com/Jigsaw-Code/outline-sdk-mobileproxy</url>
+
+  <licenses>
+    <license>
+      <name>The Apache License, Version 2.0</name>
+      <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
+
+  <scm>
+    <connection>scm:git:git://github.com/Jigsaw-Code/outline-sdk-mobileproxy.git</connection>
+    <developerConnection>scm:git:ssh://github.com:Jigsaw-Code/outline-sdk-mobileproxy.git</developerConnection>
+    <url>https://github.com/Jigsaw-Code/outline-sdk-mobileproxy/tree/main</url>
+  </scm>
+
+  <distributionManagement>
+    <repository>
+      <id>github</id>
+      <name>GitHub Jigsaw-Code Apache Maven Packages</name>
+      <url>https://maven.pkg.github.com/Jigsaw-Code/outline-sdk-mobileproxy</url>
+    </repository>
+  </distributionManagement>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>build-helper-maven-plugin</artifactId>
+        <version>3.5.0</version>
+        <executions>
+          <execution>
+            <id>attach-artifacts</id>
+            <phase>package</phase>
+            <goals>
+              <goal>attach-artifact</goal>
+            </goals>
+            <configuration>
+              <artifacts>
+                <artifact>
+                  <file>${project.basedir}/output/mobileproxy.aar</file>
+                  <type>aar</type>
+                </artifact>
+              </artifacts>
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+    </plugins>
+  </build>
+</project>

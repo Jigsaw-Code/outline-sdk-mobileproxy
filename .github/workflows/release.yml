@@ -41,8 +41,8 @@ jobs:
 
           RELEASE_CHECKSUM=$(swift package compute-checksum output/mobileproxy.xcframework.zip)
           echo "checksum=${RELEASE_CHECKSUM}" >> $GITHUB_OUTPUT
-
-      - name: Update Package Definition
+      
+      - name: Update Package Definitions
         env:
           RELEASE_TAG: ${{ steps.get_release_info.outputs.tag }}
           RELEASE_CHECKSUM: ${{ steps.get_release_info.outputs.checksum }}
@@ -52,6 +52,11 @@ jobs:
         env: 
           RELEASE_TAG: ${{ steps.get_release_info.outputs.tag }}
         run: task package:publish
+
+      - name: Publish to GitHub Maven Packages
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: mvn deploy
 
       # The first-party releases action, actions/create-release, is unmaintained.
       - name: Create Draft Release
