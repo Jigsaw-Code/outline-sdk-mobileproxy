@@ -49,7 +49,7 @@ jobs:
 
           RELEASE_CHECKSUM=$(swift package compute-checksum output/mobileproxy.xcframework.zip)
           echo "checksum=${RELEASE_CHECKSUM}" >> $GITHUB_OUTPUT
-      
+
       - name: Update Package Definitions
         env:
           RELEASE_TAG: ${{ steps.get_release_info.outputs.tag }}
