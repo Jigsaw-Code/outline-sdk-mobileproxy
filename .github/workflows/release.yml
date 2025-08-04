@@ -13,6 +13,7 @@ jobs:
     runs-on: macos-latest
     permissions:
       contents: write
+      packages: write
     steps:
       - name: Checkout outline-sdk-mobileproxy repository
         uses: actions/checkout@v4
@@ -25,6 +26,13 @@ jobs:
       - name: Setup Task
         uses: arduino/setup-task@157f82c7844f70e57cfba72da2224348d386b9fe
         with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Setup Java and Maven
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '17'
           repo-token: ${{ secrets.GITHUB_TOKEN }}
 
       - name: Build Mobileproxy
@@ -54,16 +62,14 @@ jobs:
         run: task package:publish
 
       - name: Publish to GitHub Maven Packages
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: mvn deploy
 
       # The first-party releases action, actions/create-release, is unmaintained.
       - name: Create Draft Release
         uses: softprops/action-gh-release@37fd9d0351a2df198244c8ef9f56d02d1f921e20
         with:
-          tag_name: ${{ steps.determine_tag.outputs.release_tag }}
-          name: Release ${{ steps.determine_tag.outputs.release_tag }}
+          tag_name: ${{ steps.get_release_info.outputs.tag }}
+          name: Release ${{ steps.get_release_info.outputs.tag }}
           body: |
             Release of mobileproxy based on outline-sdk tag `${{ github.event.inputs.outline_sdk_tag }}`.
 
