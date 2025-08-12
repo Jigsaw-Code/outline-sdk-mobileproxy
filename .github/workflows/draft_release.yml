@@ -1,0 +1,74 @@
+name: Draft Mobileproxy Release
+
+on:
+  workflow_dispatch:
+    inputs:
+      outline_sdk_tag:
+        description: 'Outline SDK tag to base the release on (e.g., x/v*.*.*)'
+        required: true
+        type: string
+
+jobs:
+  draft_release:
+    runs-on: macos-latest
+    permissions:
+      contents: write
+      packages: write
+    steps:
+      - name: Checkout outline-sdk-mobileproxy repository
+        uses: actions/checkout@v4
+
+      - name: Setup Go
+        uses: actions/setup-go@v5
+        with:
+          go-version-file: go.mod
+
+      - name: Setup Task
+        uses: arduino/setup-task@157f82c7844f70e57cfba72da2224348d386b9fe
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build Mobileproxy
+        env:
+          OUTLINE_SDK_TAG: ${{ github.event.inputs.outline_sdk_tag }}
+        run: task build:mobileproxy
+
+      - name: Get Release Info
+        id: get_release_info
+        run: |
+          INPUT_TAG="${{ github.event.inputs.outline_sdk_tag }}"
+          RELEASE_TAG="${INPUT_TAG#x/v}"
+          echo "tag=${RELEASE_TAG}" >> $GITHUB_OUTPUT
+
+          RELEASE_CHECKSUM=$(swift package compute-checksum output/mobileproxy.xcframework.zip)
+          echo "checksum=${RELEASE_CHECKSUM}" >> $GITHUB_OUTPUT
+
+      - name: Update Package Definitions
+        env:
+          RELEASE_TAG: ${{ steps.get_release_info.outputs.tag }}
+          RELEASE_CHECKSUM: ${{ steps.get_release_info.outputs.checksum }}
+        run: task package:update
+
+      - name: Publish Release Commit
+        env: 
+          RELEASE_TAG: ${{ steps.get_release_info.outputs.tag }}
+        run: task package:publish
+
+      - name: Publish to GitHub Maven Packages
+        run: mvn deploy
+
+      # The first-party releases action, actions/create-release, is unmaintained.
+      - name: Create Draft Release
+        uses: softprops/action-gh-release@37fd9d0351a2df198244c8ef9f56d02d1f921e20
+        with:
+          tag_name: ${{ steps.get_release_info.outputs.tag }}
+          name: Release ${{ steps.get_release_info.outputs.tag }}
+          body: |
+            Release of mobileproxy based on outline-sdk tag `${{ github.event.inputs.outline_sdk_tag }}`.
+
+            **Swift Package Checksum:**
+            `${{ steps.get_release_info.outputs.checksum }}`
+          draft: true
+          files: |
+            output/mobileproxy.aar
+            output/mobileproxy.xcframework.zip

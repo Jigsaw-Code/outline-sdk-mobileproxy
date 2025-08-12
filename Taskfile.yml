@@ -6,11 +6,13 @@ tasks:
     # We prefix with "RELEASE_" to avoid clashing with Taskfile's internal env value, "CHECKSUM".
     cmds:
       - go run tasks/package_update.go "{{.RELEASE_TAG}}" "{{.RELEASE_CHECKSUM}}"
+      - mvn versions:set -DnewVersion="{{.RELEASE_TAG}}-SNAPSHOT" -DgenerateBackupPoms=false
     sources:
       - tasks/package_update.go
       - Package.swift.template
     generates:
       - Package.swift
+      - pom.xml
   
   package:publish:
     desc: Publishes the updated Package.swift and a new git tag.
@@ -18,7 +20,8 @@ tasks:
       - git config --global user.name 'github-actions[bot]'
       - git config --global user.email 'github-actions[bot]@users.noreply.github.com'
       - git add Package.swift
-      - git commit -m "Update Package.swift for release {{.RELEASE_TAG}}"
+      - git add pom.xml
+      - git commit -m "Update Package.swift and pom.xml for release {{.RELEASE_TAG}}"
       - git tag -a "{{.RELEASE_TAG}}" -m "Release {{.RELEASE_TAG}}"
       - git push origin HEAD:main
       - git push origin "{{.RELEASE_TAG}}"
