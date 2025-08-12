@@ -1,0 +1,16 @@
+name: Publish Maven Package
+
+on:
+  release:
+    types: [published]
+
+jobs:
+  release_maven_snapshot:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      # Apparently this is how this works?
+      - name: Publish Maven Snapshot
+        run: mvn release:prepare release:perform
