@@ -6,7 +6,7 @@ tasks:
     # We prefix with "RELEASE_" to avoid clashing with Taskfile's internal env value, "CHECKSUM".
     cmds:
       - go run tasks/package_update.go "{{.RELEASE_TAG}}" "{{.RELEASE_CHECKSUM}}"
-      - mvn versions:set -DnewVersion="{{.RELEASE_TAG}}"
+      - mvn versions:set -DnewVersion="{{.RELEASE_TAG}}-SNAPSHOT" -DgenerateBackupPoms=false
     sources:
       - tasks/package_update.go
       - Package.swift.template
