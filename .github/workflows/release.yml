@@ -57,8 +57,8 @@ jobs:
       - name: Create Draft Release
         uses: softprops/action-gh-release@37fd9d0351a2df198244c8ef9f56d02d1f921e20
         with:
-          tag_name: ${{ steps.get_release_info.outputs.release_tag }}
-          name: Release ${{ steps.get_release_info.outputs.release_tag }}
+          tag_name: ${{ steps.get_release_info.outputs.tag }}
+          name: Release ${{ steps.get_release_info.outputs.tag }}
           body: |
             Release of mobileproxy based on outline-sdk tag `${{ github.event.inputs.outline_sdk_tag }}`.
 
