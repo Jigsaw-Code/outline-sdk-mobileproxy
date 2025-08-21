@@ -12,26 +12,37 @@
 // See the License for the specific language governing permissions and
 // limitations under the License.
 
+import org.gradle.api.publish.maven.MavenPublication
+import org.gradle.api.publish.PublishingExtension
+
 plugins {
-  id "maven-publish"
+  id("maven-publish")
 }
 
-val aarFile = layout.buildDirectory.file("mobileproxy.aar")
+val aarFile = layout.buildDirectory.file("libs/mobileproxy.aar")
 
-tasks.register<Exec>("downloadRelease") {
+val downloadRelease by tasks.register<Exec>("downloadMobileproxyRelease") {
+  doFirst {
+    aarFile.get().asFile.parentFile.mkdirs()
+  }
+
   commandLine(
     "curl",
     "-L",
     "-o", aarFile.get().asFile.path,
+    // "-H", "Authorization: Bearer <your github token>",
     "https://github.com/Jigsaw-Code/outline-sdk-mobileproxy/releases/download/${project.version}/mobileproxy.aar"
   )
 }
 
-publishing {
+configure<PublishingExtension> {
   publications {
     create<MavenPublication>("release") {
+      groupId = "com.github.Jigsaw-Code"
+      artifactId = "mobileproxy"
+
       artifact(aarFile) {
-        builtBy(tasks.named("downloadRelease"))
+        builtBy(downloadRelease)
       }
     }
   }

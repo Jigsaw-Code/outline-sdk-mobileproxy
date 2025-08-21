@@ -1,4 +1,6 @@
-.task
+.build
 .gradle
+.task
+build
 outline-sdk
 output
