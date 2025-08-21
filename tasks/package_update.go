@@ -37,20 +37,35 @@ func main() {
 		Checksum: checksum,
 	}
 
-	tmpl, err := template.ParseFiles("Package.swift.template")
+	packageTmpl, err := template.ParseFiles("Package.swift.template")
 	if err != nil {
 		log.Fatalf("Failed to parse template file: %v", err)
 	}
 
-	outputFile, err := os.Create("Package.swift")
+	packageOutputFile, err := os.Create("Package.swift")
 	if err != nil {
 		log.Fatalf("Failed to create Package.swift: %v", err)
 	}
-	defer outputFile.Close()
+	defer packageOutputFile.Close()
 
-	if err := tmpl.Execute(outputFile, data); err != nil {
+	if err := packageTmpl.Execute(packageOutputFile, data); err != nil {
 		log.Fatalf("Failed to execute template: %v", err)
 	}
 
-	log.Println("Package.swift generated successfully.")
+	gradleTmpl, err := template.ParseFiles("gradle.properties.template")
+	if err != nil {
+		log.Fatalf("Failed to parse template file: %v", err)
+	}
+
+	gradleOutputFile, err := os.Create("gradle.properties")
+	if err != nil {
+		log.Fatalf("Failed to create gradle.properties: %v", err)
+	}
+	defer gradleOutputFile.Close()
+
+	if err := gradleTmpl.Execute(gradleOutputFile, data); err != nil {
+		log.Fatalf("Failed to execute template: %v", err)
+	}
+
+	log.Println("Package.swift and gradle.properties generated successfully.")
 }
