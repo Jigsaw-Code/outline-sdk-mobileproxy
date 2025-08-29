@@ -30,8 +30,7 @@ val downloadRelease by tasks.register<Exec>("downloadMobileproxyRelease") {
     "curl",
     "-L",
     "-o", aarFile.get().asFile.path,
-    // "-H", "Authorization: Bearer <your github token>",
-    "https://github.com/Jigsaw-Code/outline-sdk-mobileproxy/releases/download/${project.version}/mobileproxy.aar"
+    "https://github.com/Jigsaw-Code/outline-sdk-mobileproxy/releases/download/0.0.4/mobileproxy.aar"
   )
 }
 
