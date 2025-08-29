@@ -52,5 +52,20 @@ func main() {
 		log.Fatalf("Failed to execute template: %v", err)
 	}
 
-	log.Println("Package.swift and gradle.properties generated successfully.")
+	gradleTmpl, err := template.ParseFiles("build.gradle.kts.template")
+	if err != nil {
+		log.Fatalf("Failed to parse template file: %v", err)
+	}
+
+	gradleOutputFile, err := os.Create("build.gradle.kts")
+	if err != nil {
+		log.Fatalf("Failed to create build.gradle.kts: %v", err)
+	}
+	defer gradleOutputFile.Close()
+
+	if err := gradleTmpl.Execute(gradleOutputFile, data); err != nil {
+		log.Fatalf("Failed to execute template: %v", err)
+	}
+
+	log.Println("Package.swift and build.gradle.kts generated successfully.")
 }
