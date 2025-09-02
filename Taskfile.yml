@@ -17,8 +17,8 @@ tasks:
     cmds:
       - git config --global user.name 'github-actions[bot]'
       - git config --global user.email 'github-actions[bot]@users.noreply.github.com'
-      - git add Package.swift
-      - git commit -m "Update Package.swift for release {{.RELEASE_TAG}}"
+      - git add Package.swift build.gradle.kts
+      - git commit -m "Update Package.swift and build.gradle.kts for release {{.RELEASE_TAG}}"
       - git tag -a "{{.RELEASE_TAG}}" -m "Release {{.RELEASE_TAG}}"
       - git push origin HEAD:main
       - git push origin "{{.RELEASE_TAG}}"
