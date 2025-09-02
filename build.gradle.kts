@@ -37,7 +37,7 @@ val downloadRelease by tasks.register<Exec>("downloadMobileproxyRelease") {
 configure<PublishingExtension> {
   publications {
     create<MavenPublication>("release") {
-      groupId = "com.github.Jigsaw-Code"
+      groupId = "com.github.jigsaw-code"
       artifactId = "mobileproxy"
 
       artifact(aarFile) {
