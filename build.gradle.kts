@@ -31,7 +31,7 @@ val downloadRelease by tasks.register<Exec>("downloadMobileproxyRelease") {
     "-L",
     "-o", aarFile.get().asFile.path,
     // We must compile this tag, as 'gradle.properties' is overwritten by jitpack
-    "https://github.com/Jigsaw-Code/outline-sdk-mobileproxy/releases/download/0.0.6/mobileproxy.aar"
+    "https://github.com/Jigsaw-Code/outline-sdk-mobileproxy/releases/download/0.0.7/mobileproxy.aar"
   )
 }
 
