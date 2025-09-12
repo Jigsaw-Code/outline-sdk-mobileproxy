@@ -29,6 +29,7 @@ jobs:
 
       - name: Build Mobileproxy
         env:
+          ANDROID_NDK_HOME: ${{ vars.ANDROID_NDK_LATEST_HOME }}
           OUTLINE_SDK_TAG: ${{ github.event.inputs.outline_sdk_tag }}
         run: task build:mobileproxy
 
